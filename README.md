@@ -1,82 +1,72 @@
-```markdown
-# WebCripto
+# CriptoVoid — Plataforma de Criptomoedas
 
-WebCripto é um projeto focado na obtenção e análise de dados de criptomoedas em tempo real, fornecendo informações essenciais para traders e entusiastas do mercado financeiro.
+> Interface web premium para monitoramento de criptomoedas em tempo real.
 
-## Índice
+---
 
-- [Descrição](#descrição)
-- [Funcionalidades](#funcionalidades)
-- [Como Usar](#como-usar)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Licença](#licença)
-- [Autor](#autor)
-- [Contribuição](#contribuição)
-- [Notas Finais](#notas-finais)
+##  Funcionalidades
 
-## Descrição
+- **Cotações ao Vivo** — Preços de BTC, ETH, LTC e TRX atualizados a cada 60 segundos via CoinGecko
+- **Ticker de Preços** — Barra de cotações em tempo real no topo da página
+- **Mini Gráficos** — Histórico de 7 dias para cada criptomoeda
+- **Conversor de Moedas** — Converta entre BRL e qualquer criptomoeda instantaneamente
+- **Guia de Mineradoras** — FreeBitco.in, Freetrx.in, AutoFaucet e Unmineable
+- **Carteiras** — FaucetPay e Mercado Bitcoin
+- **Scripts** — Tampermonkey + scripts automatizadores
 
-O **WebCripto** foi desenvolvido para facilitar o acesso a dados do mercado de criptomoedas, permitindo monitoramento de preços, conversão de moedas e análise de tendências. Ele utiliza APIs para buscar informações atualizadas e exibi-las de forma clara e intuitiva.
+## 🚀 Como Usar
 
-## Funcionalidades
+### Modo Direto (sem servidor)
+Abra o arquivo `index.html` diretamente no navegador. As cotações serão carregadas automaticamente via API pública do CoinGecko.
 
-- **Consulta de Preços:** Obtenha valores atualizados das principais criptomoedas do mercado.
-- **Conversor de Moedas:** Converta entre diferentes criptomoedas e moedas fiduciárias.
-- **Histórico de Preços:** Visualize a evolução dos preços ao longo do tempo.
-- **Gráficos Interativos:** Analise tendências através de gráficos dinâmicos.
-- **Alerta de Preço:** Configure alertas para notificar quando uma moeda atingir um valor específico.
+### Com Servidor Local
+```bash
+# Python
+python -m http.server 3000
 
-## Como Usar
-
-### Requisitos
-- Navegador moderno (Google Chrome, Firefox, Edge)
-- Conexão com a internet
-
-### Instalação
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/HaygoNunes/WebCripto.git
-   ```
-2. Acesse o diretório do projeto:
-   ```bash
-   cd WebCripto
-   ```
-3. Instale as dependências:
-   ```bash
-   npm install
-   ```
-4. Inicie o projeto:
-   ```bash
-   npm start
-   ```
-5. Acesse no navegador:
-   ```
-   http://localhost:3000
-   ```
-
-## Tecnologias Utilizadas
-
-- **JavaScript / Node.js**
-- **React.js** para interface dinâmica
-- **CSS / Tailwind** para estilização moderna
-- **APIs de Criptomoedas** para obtenção de dados em tempo real
-
-## Licença
-
-Este projeto está licenciado sob a **MIT License** - consulte o arquivo LICENSE para mais detalhes.
-
-## Autor
-
-**Hyago Nunes**
-- GitHub: [HyagoNunes](https://github.com/HaygoNunes)
-- Repositório: [WebCripto](https://github.com/HaygoNunes/WebCripto)
-
-## Contribuição
-
-Contribuições são bem-vindas! Se você tiver sugestões, melhorias ou encontrar problemas, sinta-se à vontade para **abrir uma issue** ou **enviar um pull request**.
-
-## Notas Finais
-
-O WebCripto é um projeto voltado para análise de mercado, e não oferece serviços financeiros ou de investimento. Use os dados obtidos com responsabilidade.
+# Node.js
+npx serve .
 ```
 
+Acesse: `http://localhost:3000`
+
+## 🛠 Tecnologias
+
+| Tecnologia | Uso |
+|---|---|
+| HTML5 | Estrutura semântica |
+| CSS3 (Custom Properties) | Design responsivo com variáveis CSS |
+| JavaScript ES2022 | Lógica, API calls e interações |
+| Chart.js | Mini gráficos de histórico |
+| CoinGecko API | Dados de preços gratuitos e em tempo real |
+| Google Fonts (Orbitron + Space Mono + Inter) | Tipografia premium |
+
+## 📁 Estrutura
+
+```
+WebCripto/
+├── index.html     # Página principal
+├── styles.css     # Estilos (tema Deep Space)
+├── scripts.js     # Lógica e API
+└── README.md      # Este arquivo
+```
+
+## API
+
+Utiliza a [CoinGecko API](https://www.coingecko.com/api/documentation) — gratuita, sem chave de API necessária.
+
+Endpoints utilizados:
+- `GET /simple/price` — Cotações atuais
+- `GET /coins/{id}/market_chart` — Histórico de preços
+
+## ⚠️ Aviso
+
+Este projeto é apenas informativo e educacional. Não constitui aconselhamento financeiro ou de investimento.
+
+##  Autor
+
+**Hyago Nunes** — [GitHub](https://github.com/HyagoNunes/WebCripto)
+
+##  Licença
+
+MIT License

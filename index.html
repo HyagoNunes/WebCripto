@@ -1,252 +1,491 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CriptoVoid</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="img/icon.png" type="image/png">
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CriptoVoid — Universo das Criptomoedas</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    
-    <header class="header">
-        <div class="fundo-header">
-            <!-- <h1 class="titulo"><span style="color: goldenrod;">₡</span>ｒｉｐｔｏ<span style="color: #6600cc;">Ꝟ</span>ｏｉｄ</h1> -->
-            <link href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
-            <h1>
-              <em>C</em>
-              <em>R</em>
-              <em>I</em>
-              <em>P</em>
-              <em>T</em>
-              <em class="planet left">O</em>
-              <em>V</em>
-              <em class="planet right">O</em>
-              <em>I</em>
-              <em>D</em>
-            </h1>
-        
-        </div>
-        <div class="espaco"></div>
-    </header>
-    <nav>
-         <div class="fundo-button">
-            <div class="button">
-                <a href="#inicio" class="nav-link"><div class="button-edit"  id="button-inicio">Inicio</div></a>
-                <a href="#mineradoras" class="nav-link"><div class="button-edit"  id="button-mineradoras">Mineradoras</div></a>
-                <a href="#bancos" class="nav-link"> <div class="button-edit"  id="button-bancos">Bancos</div></a>
-                <a href="#script" class="nav-link"> <div class="button-edit"  id="button-script">Script</div></a>
-            </div>
-         </div>
+
+  <!-- Fundo com partículas -->
+  <canvas id="canvas-estrelas"></canvas>
+
+  <!-- Ticker de preços -->
+  <div class="ticker-wrap">
+    <div class="ticker" id="ticker">
+      <span class="ticker-item">⬛ Carregando cotações...</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="topo">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-c">₡</span><span class="logo-ripto">RIPTO</span><span class="logo-void">VOID</span>
+        <div class="logo-glow"></div>
+      </div>
+      <nav class="nav-desktop">
+        <a href="#inicio" class="nav-link" data-section="inicio">Início</a>
+        <a href="#mercado" class="nav-link" data-section="mercado">Mercado</a>
+        <a href="#conversor" class="nav-link" data-section="conversor">Conversor</a>
+        <a href="#mineradoras" class="nav-link" data-section="mineradoras">Mineradoras</a>
+        <a href="#bancos" class="nav-link" data-section="bancos">Carteiras</a>
+        <a href="#scripts" class="nav-link" data-section="scripts">Scripts</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Nav mobile -->
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="#inicio" class="nav-link-m">Início</a>
+      <a href="#mercado" class="nav-link-m">Mercado</a>
+      <a href="#conversor" class="nav-link-m">Conversor</a>
+      <a href="#mineradoras" class="nav-link-m">Mineradoras</a>
+      <a href="#bancos" class="nav-link-m">Carteiras</a>
+      <a href="#scripts" class="nav-link-m">Scripts</a>
     </nav>
-    
-    <main>
-        <section id="inicio" class="content">
-            <div class="card"><h2>Bem-vindo à CriptoVoid</h2>
-                <p>Descubra o Universo das Criptomoedas com a CriptoVoid. Na CriptoVoid, nossa missão é simplificar o mundo das criptomoedas para todos, desde iniciantes até investidores experientes. Entendemos que o universo das criptomoedas pode parecer um espaço vasto e desconhecido, e é por isso que estamos aqui para guiá-lo através de cada passo dessa jornada emocionante.</p>
+  </header>
+
+  <main>
+
+    <!-- ═══════════════ HERO ═══════════════ -->
+    <section id="inicio" class="section hero-section">
+      <div class="hero-content">
+        <div class="hero-badge"> Dados em Tempo Real</div>
+        <h1 class="hero-title">
+          Bem-vindo ao<br>
+          <span class="gradient-text">Universo Cripto</span>
+        </h1>
+        <p class="hero-desc">
+          Monitore preços, converta moedas, descubra as melhores mineradoras e scripts para maximizar seus ganhos no mercado de criptomoedas.
+        </p>
+        <div class="hero-btns">
+          <a href="#mercado" class="btn-primary">Ver Mercado</a>
+          <a href="#conversor" class="btn-secondary">Conversor</a>
+        </div>
+        <!-- Stats rápidas -->
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-num" id="stat-btc">—</span>
+            <span class="stat-lbl">Bitcoin (BRL)</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num" id="stat-eth">—</span>
+            <span class="stat-lbl">Ethereum (BRL)</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num" id="stat-ltc">—</span>
+            <span class="stat-lbl">Litecoin (BRL)</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="orbit-ring orbit-1">
+          <div class="orbit-dot"></div>
+        </div>
+        <div class="orbit-ring orbit-2">
+          <div class="orbit-dot"></div>
+        </div>
+        <div class="orbit-ring orbit-3">
+          <div class="orbit-dot"></div>
+        </div>
+        <div class="hero-globe">
+          <span>₿</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ MERCADO ═══════════════ -->
+    <section id="mercado" class="section">
+      <div class="section-header">
+        <div class="section-tag"> Cotações ao Vivo</div>
+        <h2 class="section-title">Mercado de Criptomoedas</h2>
+        <p class="section-sub">Preços atualizados automaticamente a cada 60 segundos via CoinGecko</p>
+      </div>
+
+      <div class="price-grid" id="price-grid">
+        <!-- BTC -->
+        <div class="price-card" id="card-btc">
+          <div class="card-top">
+            <div class="crypto-icon-wrap btc-color">
+              <svg viewBox="0 0 32 32" class="crypto-svg"><path d="M16 32C7.163 32 0 24.837 0 16S7.163 0 16 0s16 7.163 16 16-7.163 16-16 16zm7.189-17.98c.314-2.096-1.283-3.223-3.465-3.975l.708-2.84-1.728-.43-.69 2.765c-.454-.114-.92-.22-1.385-.326l.695-2.783L15.596 6l-.708 2.84c-.376-.086-.746-.17-1.104-.26l.002-.009-2.384-.595-.46 1.846s1.283.294 1.256.312c.7.175.826.638.805 1.006l-.806 3.235c.048.012.11.03.18.057l-.183-.046-1.13 4.532c-.086.212-.303.53-.793.41.018.025-1.256-.313-1.256-.313l-.858 1.978 2.25.561c.418.105.828.215 1.231.318l-.715 2.872 1.727.43.708-2.84c.472.127.93.245 1.378.357l-.706 2.828 1.728.43.715-2.866c2.948.558 5.164.333 6.097-2.333.752-2.146-.037-3.385-1.588-4.192 1.13-.26 1.98-1.003 2.207-2.538zm-3.95 5.538c-.533 2.147-4.148.986-5.32.695l.95-3.805c1.172.293 4.929.872 4.37 3.11zm.535-5.569c-.487 1.953-3.495.96-4.47.717l.86-3.45c.975.243 4.118.696 3.61 2.733z" fill="currentColor"/></svg>
             </div>
-            <div class="price-box">
-                <div class="crypto-price" id="btc" data-crypto="BTC">
-                    <img src="img/btc.png" alt="Ícone do Bitcoin (BTC)" class="crypto-icon">
-                    <h3>Bitcoin (BTC)</h3>
-                    <p> <span id="btc-price-brl">Carregando...</span></p>
-                    
-                </div>
-                <div class="crypto-price" id="ltc" data-crypto="LTC">
-                    <img src="img/ltc.png" alt="Ícone do Litecoin (LTC)" class="crypto-icon">
-                    <h3>Litecoin (LTC)</h3>
-                    <p> <span id="ltc-price-brl">Carregando...</span></p>
-                    
-                </div>
-                <div class="crypto-price" id="eth" data-crypto="ETH">
-                    <img src="img/ether.png" alt="Ícone do Ethereum (ETH)" class="crypto-icon">
-                    <h3>Ethereum (ETH)</h3>
-                    <p> <span id="eth-price-brl">Carregando...</span></p>
-                    
-                </div>
+            <div class="crypto-info">
+              <span class="crypto-name">Bitcoin</span>
+              <span class="crypto-sym">BTC</span>
             </div>
-                        
-            
-        </section>
-        
-        
-        <section id="mineradoras" class="content">
-            <div class="card">
-                <h2>Mineradoras de Criptomoedas</h2>
-                
-                 
-                <div class="smallcard">
-                    <h3>FreeBitco.in</h3>
-                    <p>Ganhe bitcoins gratuitos através do FreeBitco.in, uma plataforma popular que oferece a oportunidade de ganhar bitcoins gratuitos através de várias atividades, como faucet, jogos e loterias.</p>
-                    <p>Para começar a ganhar, siga estes passos:</p>
-                    <ol>
-                        <li>Cadastre-se no FreeBitco.in clicando no botão abaixo.</li>
-                        <li>Complete o captcha e clique em "Sign Up" para criar sua conta.</li>
-                        <li>Após o cadastro, você poderá acessar as diferentes maneiras de ganhar bitcoins na plataforma.</li>
-                    </ol>
-                    <div class="register-button">
-                        <a href="https://freebitco.in/?r=1393623" target="_blank" class="register-link">Registrar-se no FreeBitco.in</a>
-                    </div>
-                </div>
-                
-                <div class="smallcard">
-                    <h3>Freetrx.in</h3>
-                    <p>Ganhe TRON gratuitos através do freetrx, uma plataforma popular que oferece a oportunidade de ganhar TRX gratuitos através de várias atividades, como faucetes e loterias.</p>
-                    <p>Para começar a ganhar, siga estes passos:</p>
-                    <ol>
-                        <li>Cadastre-se no freetrx.in clicando no botão abaixo.</li>
-                        <li>Complete o captcha e clique em "Sign Up" para criar sua conta.</li>
-                        <li>Após o cadastro, você poderá acessar as diferentes maneiras de ganhar bitcoins na plataforma.</li>
-                    </ol>
-                    <div class="register-button">
-                        <a href="https://freetrx.in/?r=67569" target="_blank" class="register-link">Registrar-se no Freetrx.in</a>
-                    </div>
-                </div>
+            <div class="crypto-change" id="btc-change">—</div>
+          </div>
+          <div class="crypto-price-brl" id="btc-brl">Carregando...</div>
+          <div class="crypto-price-usd" id="btc-usd">—</div>
+          <canvas class="mini-chart" id="chart-btc"></canvas>
+        </div>
 
-
-                <div class="smallcard">
-                    <h3>AutoFaucet</h3>
-                    <p>Ganhe criptomoedas de forma automática com o AutoFaucet, uma plataforma inovadora que permite acumular várias criptomoedas gratuitamente por meio de atividades automáticas e sem complicações.</p>
-                    <p>Para começar a minerar, siga estes passos:</p>
-                    <ol> 
-                        <li>Cadastre-se no AutoFaucet clicando no botão abaixo.</li>
-                        <li>Complete o captcha e clique em "Sign Up" para criar sua conta.</li>
-                        <li>Configure suas preferências de ganhos automáticos e escolha as criptomoedas que deseja receber.</li>
-                        <li>Deixe o sistema AutoFaucet trabalhar para você, acumulando criptomoedas de forma contínua e sem esforço.</li>
-                    </ol>
-                    <div class="register-button">
-                        <a href="https://autofaucet.org/r/lokoomix" target="_blank" class="register-link">Cadastrar em AutoFaucet</a>
-                    </div>
-                </div>
-
-
-                <!-- Cartão do Unmineable -->
-                <div class="smallcard">
-                    <div>
-                        <h3>Unmineable</h3>
-                        <p>Use o Unmineable para minerar diversas criptomoedas de forma simples e eficiente.</p>
-                        <p>Para começar a minerar, siga estes passos:</p>
-                        <ol>
-                            <li>Baixe o programa do Unmineable clicando no botão abaixo.</li>
-                            <li>Após instalar o programa, adicione sua carteira Tron (TRX).</li>
-                            <li>Use o código "qcj7-j7kw" para se conectar à pool de mineração.</li>
-                        </ol>
-                        <div class="register-button">
-                            <a href="https://unmineable.com/?ref=qcj7-j7kw" target="_blank" class="register-link">Cadastrar em Unmineable</a>
-                        </div>
-                    </div>
-                    </div>
-                
+        <!-- ETH -->
+        <div class="price-card" id="card-eth">
+          <div class="card-top">
+            <div class="crypto-icon-wrap eth-color">
+              <svg viewBox="0 0 32 32" class="crypto-svg"><path d="M16 32C7.163 32 0 24.837 0 16S7.163 0 16 0s16 7.163 16 16-7.163 16-16 16zm-2.245-9.904L16 23.5l2.245-1.404L20.5 16.5l-4.5 1.5-4.5-1.5 2.255 5.596zM16 8.5l-6.5 8.75L16 19.5l6.5-2.25L16 8.5z" fill="currentColor"/></svg>
             </div>
-        </section>
-        
-        <section id="bancos" class="content">
-            <div class="card">
-                <h2>Bancos de Criptomoedas</h2>
-                
-                <!-- Cartão do FaucetPay -->
-                <div class="smallcard">
-                    <div>
-                        <h3>FaucetPay</h3>
-                        <p>Utilize o FaucetPay como sua carteira de criptomoedas. O FaucetPay é uma plataforma de micropagamentos em criptomoedas, que permite armazenar, enviar e receber diferentes tipos de moedas digitais.</p>
-                        <p>Para começar a utilizar o FaucetPay, siga estes passos:</p>
-                        <ol>
-                            <li>Cadastre-se no FaucetPay clicando no botão abaixo.</li>
-                            <li>Complete o processo de registro e verificação da sua conta.</li>
-                            <li>Depois de criar sua conta, você pode começar a receber pagamentos e realizar transações em criptomoedas.</li>
-                        </ol>
-                        <div class="register-button">
-                            <a href="https://faucetpay.io/?r=1163015" target="_blank" class="register-link">Registrar-se no FaucetPay</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Cartão do Mercado Bitcoin -->
-                <div class="smallcard">
-                   <div>   
-                        <h3>Mercado Bitcoin</h3>
-                            <p>Utilize o Mercado Bitcoin como sua plataforma de gerenciamento de criptomoedas. O Mercado Bitcoin oferece uma interface amigável para armazenar, enviar e receber diversas moedas digitais.</p>
-                            <p>Para começar a utilizar o Mercado Bitcoin, siga estes passos:</p>
-                            <ol>
-                                <li>Cadastre-se no Mercado Bitcoin clicando no botão abaixo.</li>
-                                <li>Complete o processo de registro e verificação da sua conta.</li>
-                                <li>Depois de criar sua conta, você pode começar a receber pagamentos e realizar transações em criptomoedas.</li>
-                            </ol>
-                            <div class="register-button">
-                                <a href="https://conta.mercadobitcoin.com.br/cadastro?mgm_token=f21092a305fb3af45259e8d7e648b2c15ea7272d863f6cb19bbd67ffdcc151ee&utm_campaign=mgm&utm_source=link-copy&utm_medium=web" target="_blank" class="register-link">Cadastrar em MB</a>
-                            </div>
-                    </div>
+            <div class="crypto-info">
+              <span class="crypto-name">Ethereum</span>
+              <span class="crypto-sym">ETH</span>
             </div>
-        </section>
-        
-        <section id="script" class="content">
-            <div class="card">
-                <h2>Script</h2>
-                <p id="description">Descubra uma variedade de scripts e dicas para maximizar seus ganhos com criptomoedas.</p>
-                
-                <!-- Cartão do FreeBitco.in Void 2024 -->
-                <div class="smallcard">
-                    <h3>Tampermonkey</h3>
-                    <p>Tampermonkey é uma extensão grátis para seu navegador e o gerenciador mais popular de scripts de usuário para navegadores baseados em Blink e WebKit, tais como Chrome，Microsoft Edge，Safari，Opera Next e Firefox.</p>
-                    <p>Mesmo que alguns dos navegadores suportados tenham suporte nativo a scripts de usuário, o Tampermonkey lhe dá muito mais comodidade na gestão de seus scripts. Ele fornece recursos como a instalação fácil de scripts, verificação automática de atualizações, uma visão geral simples de que scripts estão rodando em um guia, um editor embutido e há uma boa chance de que os scripts incompatíveis rodem bem no Tampermonkey.</p>
-                    <ul>
-                        <li>Todos os script apresentados nesse site pode ser executador no Tampermonkey </li> 
-                    </ul>
-                    <div class="register-button">
-                        <a href="https://www.tampermonkey.net" target="_blank" class="register-link">Adicionar plug</a>
-                    </div>
-                </div>
-                <div class="smallcard">
-                    <h3>Void Coin FreeBitco</h3>
-                    <p>Use o script "Void Coin FreeBitco" para automatizar suas atividades no FreeBitco.in e aumentar seus ganhos.</p>
-                    <p>Para começar a usar o script, siga estes passos:</p>
-                    <ol>
-                        <li>Baixe o script clicando no botão abaixo.</li>
-                        <li>Siga as instruções fornecidas para instalar e configurar o script.</li>
-                        <li>Ative o script e deixe-o trabalhar para você, automatizando tarefas repetitivas.</li>
-                    </ol>
-                    <div class="register-button">
-                        <a href="https://greasyfork.org/en/scripts/493924-freebitco-in-void-2024" target="_blank" class="register-link">Baixar o Script</a>
-                    </div>
-                </div>
+            <div class="crypto-change" id="eth-change">—</div>
+          </div>
+          <div class="crypto-price-brl" id="eth-brl">Carregando...</div>
+          <div class="crypto-price-usd" id="eth-usd">—</div>
+          <canvas class="mini-chart" id="chart-eth"></canvas>
+        </div>
 
-                <div class="smallcard">
-                    <h3>Void Coin FreeTRX</h3>
-                    <p>Use o script "Void Coin FreeTRX" para automatizar suas atividades no Freetrx.in e aumentar seus ganhos.</p>
-                    <p>Para começar a usar o script, siga estes passos:</p>
-                    <ol>
-                        <li>Baixe o script clicando no botão abaixo.</li>
-                        <li>Siga as instruções fornecidas para instalar e configurar o script.</li>
-                        <li>Ative o script e deixe-o trabalhar para você, automatizando tarefas repetitivas.</li>
-                    </ol>
-                    <div class="register-button">
-                        <a href="https://greasyfork.org/en/scripts/497375-void-coin-freetrx" target="_blank" class="register-link">Baixar o Script</a>
-                    </div>
-                </div>
-
-                
-                
+        <!-- LTC -->
+        <div class="price-card" id="card-ltc">
+          <div class="card-top">
+            <div class="crypto-icon-wrap ltc-color">
+              <svg viewBox="0 0 32 32" class="crypto-svg"><path d="M16 32C7.163 32 0 24.837 0 16S7.163 0 16 0s16 7.163 16 16-7.163 16-16 16zm-4.795-12.27l.996-3.72-1.024.25.478-1.788 1.046-.26 2.62-9.785h4.252l-2.06 7.697 1.023-.25-.455 1.79-1.022.25-.535 1.995H20.8L20.02 17.73H11.205z" fill="currentColor"/></svg>
             </div>
-        </section>
-    </main>
+            <div class="crypto-info">
+              <span class="crypto-name">Litecoin</span>
+              <span class="crypto-sym">LTC</span>
+            </div>
+            <div class="crypto-change" id="ltc-change">—</div>
+          </div>
+          <div class="crypto-price-brl" id="ltc-brl">Carregando...</div>
+          <div class="crypto-price-usd" id="ltc-usd">—</div>
+          <canvas class="mini-chart" id="chart-ltc"></canvas>
+        </div>
 
-    <footer id="footer">
-        <p>&copy; 2024 CriptoVoiD. Colabore BTC: 17jGRDbuMb5oxsjTG64FFB2Ax4BNBhqrV</p>
-        <a href="https://www.tiktok.com/@cripto_voidcla" target="_social" class="tiktok-button">
-            <img src="img/tktk.png" alt="TikTok">
+        <!-- TRX -->
+        <div class="price-card" id="card-trx">
+          <div class="card-top">
+            <div class="crypto-icon-wrap trx-color">
+              <svg viewBox="0 0 32 32" class="crypto-svg"><path d="M16 0C7.163 0 0 7.163 0 16s7.163 16 16 16 16-7.163 16-16S24.837 0 16 0zm6.728 9.3l-7.56 13.1-7.544-13.1h15.104zM9.29 10.526l5.334 9.247-9.7-5.6 4.366-3.647zm13.42 0l4.367 3.647-9.7 5.6 5.333-9.247z" fill="currentColor"/></svg>
+            </div>
+            <div class="crypto-info">
+              <span class="crypto-name">Tron</span>
+              <span class="crypto-sym">TRX</span>
+            </div>
+            <div class="crypto-change" id="trx-change">—</div>
+          </div>
+          <div class="crypto-price-brl" id="trx-brl">Carregando...</div>
+          <div class="crypto-price-usd" id="trx-usd">—</div>
+          <canvas class="mini-chart" id="chart-trx"></canvas>
+        </div>
+      </div>
+
+      <div class="update-info" id="ultima-atualizacao">
+        <span class="pulse-dot"></span> Aguardando dados...
+      </div>
+    </section>
+
+    <!-- ═══════════════ CONVERSOR ═══════════════ -->
+    <section id="conversor" class="section">
+      <div class="section-header">
+        <div class="section-tag">🔄 Conversor</div>
+        <h2 class="section-title">Conversor de Moedas</h2>
+        <p class="section-sub">Converta entre criptomoedas e reais em tempo real</p>
+      </div>
+
+      <div class="converter-box">
+        <div class="conv-row">
+          <div class="conv-field">
+            <label class="conv-label">Quantidade</label>
+            <input type="number" id="conv-amount" class="conv-input" value="1" min="0" step="any" placeholder="0.00">
+          </div>
+          <div class="conv-field">
+            <label class="conv-label">De</label>
+            <select id="conv-from" class="conv-select">
+              <option value="brl">🇧🇷 Real (BRL)</option>
+              <option value="bitcoin" selected>₿ Bitcoin (BTC)</option>
+              <option value="ethereum">⟠ Ethereum (ETH)</option>
+              <option value="litecoin">Ł Litecoin (LTC)</option>
+              <option value="tron">◈ Tron (TRX)</option>
+            </select>
+          </div>
+          <button class="conv-swap" id="conv-swap" title="Trocar moedas">⇄</button>
+          <div class="conv-field">
+            <label class="conv-label">Para</label>
+            <select id="conv-to" class="conv-select">
+              <option value="brl" selected>🇧🇷 Real (BRL)</option>
+              <option value="bitcoin">₿ Bitcoin (BTC)</option>
+              <option value="ethereum">⟠ Ethereum (ETH)</option>
+              <option value="litecoin">Ł Litecoin (LTC)</option>
+              <option value="tron">◈ Tron (TRX)</option>
+            </select>
+          </div>
+        </div>
+        <div class="conv-result" id="conv-result">
+          <span class="conv-result-num" id="conv-num">—</span>
+          <span class="conv-result-lbl" id="conv-lbl">Insira um valor para converter</span>
+        </div>
+        <div class="conv-rate" id="conv-rate"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ MINERADORAS ═══════════════ -->
+    <section id="mineradoras" class="section">
+      <div class="section-header">
+        <div class="section-tag"> Mineração</div>
+        <h2 class="section-title">Mineradoras & Faucets</h2>
+        <p class="section-sub">Plataformas para ganhar criptomoedas de forma gratuita ou minerando</p>
+      </div>
+
+      <div class="cards-grid">
+
+        <div class="info-card">
+          <div class="card-icon" style="background: linear-gradient(135deg, #f7931a, #ff6b00);">₿</div>
+          <div class="card-body">
+            <h3 class="card-title">FreeBitco.in</h3>
+            <div class="card-badge">Faucet Gratuito</div>
+            <p class="card-desc">Ganhe bitcoins gratuitos através de faucet, jogos e loterias. Uma das plataformas mais antigas e confiáveis do mercado.</p>
+            <ul class="card-steps">
+              <li>Cadastre-se usando o botão abaixo</li>
+              <li>Complete o captcha e crie sua conta</li>
+              <li>Acesse o faucet a cada hora</li>
+            </ul>
+            <a href="https://freebitco.in/?r=1393623" target="_blank" rel="noopener noreferrer" class="card-btn">
+              Cadastrar no FreeBitco.in →
+            </a>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="card-icon" style="background: linear-gradient(135deg, #ef0027, #c0392b);">◈</div>
+          <div class="card-body">
+            <h3 class="card-title">Freetrx.in</h3>
+            <div class="card-badge">Faucet Gratuito</div>
+            <p class="card-desc">Ganhe TRON (TRX) gratuitamente através de faucets e loterias. Interface simples e pagamentos rápidos.</p>
+            <ul class="card-steps">
+              <li>Cadastre-se usando o botão abaixo</li>
+              <li>Complete o captcha e crie sua conta</li>
+              <li>Resgate TRX diariamente</li>
+            </ul>
+            <a href="https://freetrx.in/?r=67569" target="_blank" rel="noopener noreferrer" class="card-btn">
+              Cadastrar no Freetrx.in →
+            </a>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="card-icon" style="background: linear-gradient(135deg, #00d4ff, #0099cc);">⚡</div>
+          <div class="card-body">
+            <h3 class="card-title">AutoFaucet</h3>
+            <div class="card-badge">Automático</div>
+            <p class="card-desc">Acumule múltiplas criptomoedas de forma automática e contínua. Configure uma vez e deixe o sistema trabalhar por você.</p>
+            <ul class="card-steps">
+              <li>Cadastre-se usando o botão abaixo</li>
+              <li>Configure as moedas desejadas</li>
+              <li>Ative o modo automático</li>
+            </ul>
+            <a href="https://autofaucet.org/r/lokoomix" target="_blank" rel="noopener noreferrer" class="card-btn">
+              Cadastrar no AutoFaucet →
+            </a>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="card-icon" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">⛏</div>
+          <div class="card-body">
+            <h3 class="card-title">Unmineable</h3>
+            <div class="card-badge">Mineração Real</div>
+            <p class="card-desc">Mine criptomoedas usando sua GPU ou CPU. Você minera com algoritmos eficientes e recebe na moeda de sua escolha.</p>
+            <ul class="card-steps">
+              <li>Baixe o programa pelo botão abaixo</li>
+              <li>Adicione sua carteira TRX</li>
+              <li>Use o código <code class="code-ref">qcj7-j7kw</code></li>
+            </ul>
+            <a href="https://unmineable.com/?ref=qcj7-j7kw" target="_blank" rel="noopener noreferrer" class="card-btn">
+              Acessar Unmineable →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════ CARTEIRAS ═══════════════ -->
+    <section id="bancos" class="section">
+      <div class="section-header">
+        <div class="section-tag"> Carteiras</div>
+        <h2 class="section-title">Carteiras & Exchanges</h2>
+        <p class="section-sub">Plataformas seguras para armazenar, enviar e receber suas criptomoedas</p>
+      </div>
+
+      <div class="cards-grid two-col">
+
+        <div class="info-card featured">
+          <div class="featured-badge"> Recomendado</div>
+          <div class="card-icon" style="background: linear-gradient(135deg, #f7931a, #ffd700);">💳</div>
+          <div class="card-body">
+            <h3 class="card-title">FaucetPay</h3>
+            <div class="card-badge">Micropagamentos</div>
+            <p class="card-desc">Carteira especializada em micropagamentos cripto. Perfeita para receber ganhos dos faucets. Suporta BTC, ETH, LTC, TRX e muito mais.</p>
+            <div class="card-features">
+              <span class="feature-tag">✓ Zero taxas</span>
+              <span class="feature-tag">✓ Saques rápidos</span>
+              <span class="feature-tag">✓ 10+ moedas</span>
+            </div>
+            <ul class="card-steps">
+              <li>Cadastre-se pelo botão abaixo</li>
+              <li>Verifique seu e-mail</li>
+              <li>Comece a receber pagamentos</li>
+            </ul>
+            <a href="https://faucetpay.io/?r=1163015" target="_blank" rel="noopener noreferrer" class="card-btn">
+              Cadastrar no FaucetPay →
+            </a>
+          </div>
+        </div>
+
+        <div class="info-card featured">
+          <div class="featured-badge">🇧🇷 Brasileiro</div>
+          <div class="card-icon" style="background: linear-gradient(135deg, #00c4b0, #009988);">🏦</div>
+          <div class="card-body">
+            <h3 class="card-title">Mercado Bitcoin</h3>
+            <div class="card-badge">Exchange Nacional</div>
+            <p class="card-desc">A maior exchange de criptomoedas da América Latina. Regulamentada no Brasil, com suporte em português e depósito via PIX.</p>
+            <div class="card-features">
+              <span class="feature-tag">✓ Depósito via PIX</span>
+              <span class="feature-tag">✓ Regulamentado</span>
+              <span class="feature-tag">✓ Suporte BR</span>
+            </div>
+            <ul class="card-steps">
+              <li>Crie sua conta abaixo</li>
+              <li>Verifique sua identidade (KYC)</li>
+              <li>Deposite via PIX e negocie</li>
+            </ul>
+            <a href="https://conta.mercadobitcoin.com.br/cadastro?mgm_token=f21092a305fb3af45259e8d7e648b2c15ea7272d863f6cb19bbd67ffdcc151ee&utm_campaign=mgm&utm_source=link-copy&utm_medium=web" target="_blank" rel="noopener noreferrer" class="card-btn">
+              Cadastrar no Mercado Bitcoin →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════ SCRIPTS ═══════════════ -->
+    <section id="scripts" class="section">
+      <div class="section-header">
+        <div class="section-tag"> Automação</div>
+        <h2 class="section-title">Scripts & Ferramentas</h2>
+        <p class="section-sub">Automatize suas tarefas e maximize seus ganhos com estes scripts</p>
+      </div>
+
+      <div class="cards-grid">
+
+        <div class="info-card script-card">
+          <div class="card-icon" style="background: linear-gradient(135deg, #28a745, #155724);">🔧</div>
+          <div class="card-body">
+            <h3 class="card-title">Tampermonkey</h3>
+            <div class="card-badge">Extensão Base</div>
+            <p class="card-desc">O gerenciador de scripts de usuário mais popular. Compatível com Chrome, Firefox, Edge, Safari e Opera. Todos os scripts abaixo requerem o Tampermonkey.</p>
+            <div class="terminal-block">
+              <span class="term-comment"># Instale primeiro o Tampermonkey</span><br>
+              <span class="term-cmd">Chrome Web Store → Tampermonkey</span>
+            </div>
+            <a href="https://www.tampermonkey.net" target="_blank" rel="noopener noreferrer" class="card-btn">
+              Instalar Tampermonkey →
+            </a>
+          </div>
+        </div>
+
+        <div class="info-card script-card">
+          <div class="card-icon" style="background: linear-gradient(135deg, #f7931a, #ff6b00);">🤖</div>
+          <div class="card-body">
+            <h3 class="card-title">Void Coin FreeBitco</h3>
+            <div class="card-badge">Script Automatizador</div>
+            <p class="card-desc">Automatiza suas atividades no FreeBitco.in — coleta automática do faucet, participação em loterias e muito mais.</p>
+            <div class="terminal-block">
+              <span class="term-comment"># Passos para usar</span><br>
+              <span class="term-cmd">1. Instale o Tampermonkey</span><br>
+              <span class="term-cmd">2. Clique em "Baixar Script"</span><br>
+              <span class="term-cmd">3. Confirme a instalação</span>
+            </div>
+            <a href="https://greasyfork.org/en/scripts/493924-freebitco-in-void-2024" target="_blank" rel="noopener noreferrer" class="card-btn">
+              Baixar Script →
+            </a>
+          </div>
+        </div>
+
+        <div class="info-card script-card">
+          <div class="card-icon" style="background: linear-gradient(135deg, #ef0027, #c0392b);">🤖</div>
+          <div class="card-body">
+            <h3 class="card-title">Void Coin FreeTRX</h3>
+            <div class="card-badge">Script Automatizador</div>
+            <p class="card-desc">Automatiza o Freetrx.in para coletar TRX de forma contínua sem intervenção manual. Compatível com todos os navegadores suportados pelo Tampermonkey.</p>
+            <div class="terminal-block">
+              <span class="term-comment"># Passos para usar</span><br>
+              <span class="term-cmd">1. Instale o Tampermonkey</span><br>
+              <span class="term-cmd">2. Clique em "Baixar Script"</span><br>
+              <span class="term-cmd">3. Confirme a instalação</span>
+            </div>
+            <a href="https://greasyfork.org/en/scripts/497375-void-coin-freetrx" target="_blank" rel="noopener noreferrer" class="card-btn">
+              Baixar Script →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════ AVISO ═══════════════ -->
+    <section class="section aviso-section">
+      <div class="aviso-box">
+        <span class="aviso-icon">⚠️</span>
+        <div>
+          <strong>Aviso de Risco:</strong> Criptomoedas são ativos de alto risco e volatilidade. O conteúdo deste site é apenas informativo e educacional. Não constitui aconselhamento financeiro ou de investimento. Invista apenas o que você pode perder.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-c">₡</span><span class="logo-ripto">RIPTO</span><span class="logo-void">VOID</span>
+      </div>
+      <div class="footer-links">
+        <a href="#inicio">Início</a>
+        <a href="#mercado">Mercado</a>
+        <a href="#conversor">Conversor</a>
+        <a href="#mineradoras">Mineradoras</a>
+        <a href="#bancos">Carteiras</a>
+        <a href="#scripts">Scripts</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.tiktok.com/@cripto_voidcla" target="_blank" rel="noopener noreferrer" class="social-btn tiktok" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.53V6.79a4.85 4.85 0 01-1.02-.1z"/></svg>
+          TikTok
         </a>
-        <a href="https://www.youtube.com/@CriptoVoiD" target="_social" class="youtube-button">
-            <img src="img/yt.png" alt="YouTube">
+        <a href="https://www.youtube.com/@CriptoVoiD" target="_blank" rel="noopener noreferrer" class="social-btn youtube" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          YouTube
         </a>
-    </footer>
+      </div>
+      <div class="footer-donate">
+        <span>Colabore com BTC:</span>
+        <code class="btc-addr" id="btc-addr" title="Clique para copiar" onclick="copiarBTC()">17jGRDbuMb5oxsjTG64FFB2Ax4BNBhqrV</code>
+        <span class="copy-hint" id="copy-hint"></span>
+      </div>
+      <div class="footer-copy">
+        &copy; <span id="ano"></span> CriptoVoid — Todos os direitos reservados.
+        Dados fornecidos por <a href="https://www.coingecko.com" target="_blank" rel="noopener noreferrer">CoinGecko</a>.
+      </div>
+    </div>
+  </footer>
 
-    <script src="scripts.js"></script>
-    <script src="api.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!-- Botão voltar ao topo -->
+  <button class="btn-topo" id="btn-topo" aria-label="Voltar ao topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-
-
+  <script src="scripts.js"></script>
 </body>
 </html>
